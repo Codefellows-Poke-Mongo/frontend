@@ -1,48 +1,33 @@
 import React from 'react';
-import axios from 'axios';
-// import { render } from '@testing-library/react';
 import { withAuth0 } from '@auth0/auth0-react';
+import AuthButtons from './Auth/AuthButtons';
+import Login from './Auth/Login';
+import Logout from './Auth/Logout';
+import Profile from './Profile';
+import Content from './Content';
 
-// const API_SERVER = process.env.REACT_APP_SERVER;
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          pokedex: []
-        }
+    render() {
+        return (
+            <>
+                <div>
+                    Login or Logout with one component <AuthButtons />
+                </div>
+                <div>
+                    Login with a standalone component <Login />
+                </div>
+                <div>
+                    Logout with a standalone component <Logout />
+                </div>
+                {this.props.auth0.isAuthenticated &&
+                    <>
+                        <Profile />
+                        <Content />
+                    </>
+                }
+            </>
+        )
     }
-
-
-  async componentDidMount() {
-    if (this.props.auth0.isAuthenticated) {
-      const res = await this.props.auth0.getIdTokenClaims();
-      const jwt = res.__raw;
-      const config = {
-        headers: { "Authorization": `Bearer ${jwt}` },
-        method: 'get',
-        baseURL: process.env.REACT_APP_SERVER,
-        url: '/pokedex'
-      }
-      const pokemonsResponse = await axios(config);
-      this.setState({ books: pokemonsResponse.data })
-    }
-  }
-
-
-// getPokemons = async () => {
-//   const response = await axios.get(`${API_SERVER}/pokedex,`);
-//   this.setState({})
-// }
-
-
-  render() {
-    return (
-      <>
-      </>
-    )
-  }
 }
-
-
 export default withAuth0(App);

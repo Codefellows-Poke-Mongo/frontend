@@ -12,8 +12,7 @@ function LogoutButton(){
         logout({ returnTo: window.location.origin });
     }
 
-    return isAuthenticated && 
-        <button onClick= {handleLogout} > Logout </button>
+    return isAuthenticated && <button onClick={handleLogout}> Logout </button>
         ;
 }
 
