@@ -4,10 +4,12 @@ import AuthButtons from './Auth/AuthButtons';
 import Login from './Auth/Login';
 import Logout from './Auth/Logout';
 import Profile from './Profile';
-import Content from './Content';
+import Content from './Auth/Content';
 
 
 class App extends React.Component {
+
+
     render() {
         return (
             <>
