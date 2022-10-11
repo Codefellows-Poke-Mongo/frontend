@@ -21,7 +21,7 @@ class Content extends React.Component {
         headers: { "Authorization": `Bearer ${jwt}` },
         method: 'get',
         baseURL: process.env.REACT_APP_SERVER,
-        url: '/pokedex'
+        url: '/register'
       }
       const pokemonsResponse = await axios(config);
       this.setState({ books: pokemonsResponse.data })
