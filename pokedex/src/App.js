@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import axios from 'axios';
+// import { render } from '@testing-library/react';
+import { withAuth0 } from '@auth0/auth0-react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// const API_SERVER = process.env.REACT_APP_SERVER;
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          pokedex: []
+        }
+    }
+
+
+  async componentDidMount() {
+    if (this.props.auth0.isAuthenticated) {
+      const res = await this.props.auth0.getIdTokenClaims();
+      const jwt = res.__raw;
+      const config = {
+        headers: { "Authorization": `Bearer ${jwt}` },
+        method: 'get',
+        baseURL: process.env.REACT_APP_SERVER,
+        url: '/pokedex'
+      }
+      const pokemonsResponse = await axios(config);
+      this.setState({ books: pokemonsResponse.data })
+    }
+  }
+
+
+// getPokemons = async () => {
+//   const response = await axios.get(`${API_SERVER}/pokedex,`);
+//   this.setState({})
+// }
+
+
+  render() {
+    return (
+      <>
+      </>
+    )
+  }
 }
 
-export default App;
+
+export default withAuth0(App);
