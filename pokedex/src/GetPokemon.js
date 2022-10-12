@@ -15,7 +15,36 @@ class GetPokemon extends React.Component {
       pokedex: [],
       show: false,
       showUpdate: false,
-      selectedPokemon: {}
+      selectedPokemon: {},
+      searchedPokemon: null,
+      searchQuery: ''
+    }
+  }
+ 
+  savePokemon = async (e) => {
+    e.preventDefault();
+    let {name, id} = this.state.searchedPokemon
+    let pokemon = {name:name, id:id}
+    const response = await axios.post(`${API_SERVER}/save`, {pokemon:pokemon})
+    console.log(response.data);
+  }
+  
+  handleInput = (event) => {
+    this.setState({ searchQuery: event.target.value });
+    console.log(this.state.searchQuery);
+  }
+
+  handleSearch = async (event) => {
+    event.preventDefault();
+    try {
+      const API = `https://pokeapi.co/api/v2/pokemon/${this.state.searchQuery}`;
+      const response = await axios.get(API);
+      this.setState({ searchedPokemon: response.data });
+      console.log(this.state.searchQuery)
+      console.log(response.data);
+    } catch (error) {
+      console.log('There is an error', error.response);
+
     }
   }
 
