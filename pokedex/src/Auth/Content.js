@@ -16,7 +16,7 @@ class Content extends React.Component {
         url: '/register'
       }
       const pokemonsResponse = await axios(config);
-      this.setState({ books: pokemonsResponse.data })
+      this.setState({ pokedex: pokemonsResponse.data })
     }
   }
 

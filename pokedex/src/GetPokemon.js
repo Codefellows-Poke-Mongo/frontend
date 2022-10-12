@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import createAuth0Client from "@auth0/auth0-spa-js";
 
 const API_SERVER = process.env.REACT_APP_SERVER;
 
@@ -8,8 +7,42 @@ class GetPokemon extends React.Component{
     constructor(props) {
     super(props);
     this.state = {
-        pokedex: []
+        pokedex: [],
+        show: false,
+        showUpdate: false,
+        selectedPokemon: {}
         }
+    }
+
+    handleShow = () => {
+      this.setState({
+        show: true,
+      });
+    }
+
+    handleShowUpdate = (selectedPokemon) => {
+      this.setState({
+        showUpdate: true,
+        selectedPokemon: selectedPokemon
+      });
+    }
+
+    handleClose = () => {
+      this.setState({
+        show: false,
+        showUpdate: false,
+      });
+    }
+
+    handleAddSubmit = async (e) => {
+      e.preventDefault();
+      this.addPokemon({
+        Name: e.target.Name.value,
+        ID:   e.target.ID.value,
+        Types: e.target.Types.value,
+        Stats: e.target.Stats.value,
+        Moves: e.target.Moves.value,
+      });
     }
 
     getPokemon = async () => {
@@ -23,7 +56,7 @@ class GetPokemon extends React.Component{
       }
     }
 
-    addPokemons = async (pokemonInfo) => {
+    addPokemon = async (pokemonInfo) => {
       try{
         const response = await axios.post(`${process.env.REACT_APP_SERVER}/pokedex`, pokemonInfo);
         const newPokemon = response.data;
@@ -32,6 +65,7 @@ class GetPokemon extends React.Component{
         });
       }catch(error) {
         console.log(error);
+        this.handleClose();
       }
     }
 
@@ -65,7 +99,9 @@ class GetPokemon extends React.Component{
         console.log('There is an error: ', error.response);
       }
       this.componentDidMount();
+      this.handleClose();
     }
+
 
     componentDidMount() {
       this.getPokemon();
