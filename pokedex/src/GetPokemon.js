@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 import PokemonDisplay from "./PokemonDisplay";
-import { Profile } from "./src/Profile.js"
+import Profile  from "./Profile.js"
+import PokemonWantedForm from "./PokeWantedForm";
 import { withAuth0 } from '@auth0/auth0-react';
 
 
@@ -56,9 +57,18 @@ class GetPokemon extends React.Component {
 
   getPokemon = async () => {
     try {
-      const response = await axios.get(`${API_SERVER}/register`);
+      const res = await this.props.auth0.getIdTokenClaims();
+      const jwt = res.__raw;
+      const config = {
+        headers: { "Authorization": `Bearer ${jwt}` },
+        method: 'get',
+        baseURL: process.env.REACT_APP_SERVER,
+        url: `/register?name=${this.props.userName}`
+      }
+      const response = await axios(config)
+      console.log(response.data.Pokemon)
       this.setState({
-        pokedex: response.data
+        pokedex: response.data.Pokemon
       });
     } catch (error) {
       console.log('There is an error', error.response);
@@ -121,14 +131,17 @@ class GetPokemon extends React.Component {
   render() {
     return (
       <>
-        {this.state.pokedex.map((pokemon) =>
+      
+        {
+        this.state.pokedex.map((pokemon) =>
           <PokemonDisplay pokemon={pokemon} key={pokemon.ID} />
         )
         }
+        <PokemonWantedForm />
       </>
     );
   }
 
 }
 
-export default GetPokemon;
+export default withAuth0(GetPokemon);
