@@ -114,7 +114,7 @@ class GetPokemon extends React.Component {
         pokedex: [...this.state.pokedex, newPokemon],
       });
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       this.handleClose();
     }
   }
