@@ -4,6 +4,8 @@ import PokemonDisplay from "./PokemonDisplay";
 import Profile  from "./Profile.js"
 import PokemonWantedForm from "./PokeWantedForm";
 import { withAuth0 } from '@auth0/auth0-react';
+// import DisplayedSearchedPokemon from "./displayedSearchedPokemon";
+
 
 
 const API_SERVER = process.env.REACT_APP_SERVER;
@@ -15,7 +17,27 @@ class GetPokemon extends React.Component {
       pokedex: [],
       show: false,
       showUpdate: false,
-      selectedPokemon: {}
+      selectedPokemon: {},
+      searchQuery: '',
+      searchedPokemon: []
+    }
+  }
+
+  handleInput = (event) => {
+    event.preventDefault();
+    this.setState({ searchQuery: event.target.value });
+    console.log(this.state.searchQuery);
+  }
+
+  handleSearch = async (event) => {
+    event.preventDefault();
+    try {
+      const API = `https://pokeapi.co/api/v2/pokemon?${this.state.searchQuery}`;
+      const response = await axios.get(API);
+      console.log(response.data);
+      this.setState({ searchedPokemon: response.data });
+    } catch (error) {
+      console.log('There is an error', error.response);
     }
   }
 
@@ -138,6 +160,7 @@ class GetPokemon extends React.Component {
         )
         }
         <PokemonWantedForm />
+        {/* <DisplayedSearchedPokemon /> */}
       </>
     );
   }
