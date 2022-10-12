@@ -4,9 +4,6 @@ import PokemonDisplay from "./PokemonDisplay";
 import Profile  from "./Profile.js"
 import PokemonWantedForm from "./PokeWantedForm";
 import { withAuth0 } from '@auth0/auth0-react';
-import DisplayedSearchedPokemon from "./DisplaySearchedPokemon";
-import FormSearch from "./FormSearch";
-import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
 
 
 const API_SERVER = process.env.REACT_APP_SERVER;
@@ -47,6 +44,7 @@ class GetPokemon extends React.Component {
       console.log(response.data);
     } catch (error) {
       console.log('There is an error', error.response);
+
     }
   }
 
@@ -169,9 +167,6 @@ class GetPokemon extends React.Component {
         )
         }
         <PokemonWantedForm />
-        {this.state.searchedPokemon && 
-        <DisplayedSearchedPokemon pokemon={this.state.searchedPokemon} savePokemon={this.savePokemon}/>
-         }
       </>
     );
   }
