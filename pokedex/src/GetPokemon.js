@@ -23,13 +23,13 @@ class GetPokemon extends React.Component {
       searchQuery: ''
     }
   }
-  // hey
+ 
   savePokemon = async (e) => {
     e.preventDefault();
-    let {name, id, moves, types, stats} = this.state.searchedPokemon
-    let pokemon = {name:name, id:id, moves:moves, types:types, stats:stats}
+    let {name, id} = this.state.searchedPokemon
+    let pokemon = {name:name, id:id}
     const response = await axios.post(`${API_SERVER}/save`, {pokemon:pokemon})
-    console.log(response);
+    console.log(response.data);
   }
   
   handleInput = (event) => {
