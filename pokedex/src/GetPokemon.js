@@ -20,7 +20,8 @@ class GetPokemon extends React.Component {
       showUpdate: false,
       selectedPokemon: {},
       searchedPokemon: null,
-      searchQuery: ''
+      searchQuery: '',
+      pokedexPokemon: [],
     }
   }
  
@@ -29,7 +30,10 @@ class GetPokemon extends React.Component {
     let {name, id} = this.state.searchedPokemon
     let pokemon = {name:name, id:id}
     const response = await axios.post(`${API_SERVER}/save`, {pokemon:pokemon})
-    console.log(response.data);
+    this.setState({
+      newPokedex: [...this.state.pokedexPokemon, response.data]
+    })
+    console.log(this.state.newPokedex);
   }
   
   handleInput = (event) => {
