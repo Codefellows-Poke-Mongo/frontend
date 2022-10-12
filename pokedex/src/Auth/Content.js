@@ -19,8 +19,6 @@ class Content extends React.Component {
       this.setState({ pokedex: pokemonsResponse.data })
     }
   }
-
-
   render() {
     return (
       <>
