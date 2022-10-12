@@ -26,7 +26,7 @@ class PokemonDisplay extends React.Component {
 
 
                 <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
+                    <Card.Img variant="top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.ID}.png`} />
                     <Card.Body>
                         <Card.Title>{pokemon.Name}</Card.Title>
                         <Card.Text>
@@ -35,9 +35,9 @@ class PokemonDisplay extends React.Component {
                         </Card.Text>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                        <ListGroup.Item>{pokemon.Types}</ListGroup.Item>
-                        <ListGroup.Item>{pokemon.Stats}</ListGroup.Item>
-                        <ListGroup.Item>{pokemon.Moves}</ListGroup.Item>
+                        <ListGroup.Item>{pokemon.Types[0].type.name}</ListGroup.Item>
+                        <ListGroup.Item>{pokemon.Stats[0].stat.name}</ListGroup.Item>
+                        <ListGroup.Item>{pokemon.Moves[0]}</ListGroup.Item>
                     </ListGroup>
                     <Card.Body>
                         <Button variant="primary">Trade Me!</Button>
