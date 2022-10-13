@@ -5,6 +5,11 @@ import Profile  from "./Profile.js"
 import PokemonWantedForm from "./PokeWantedForm";
 import { withAuth0 } from '@auth0/auth0-react';
 
+import DisplayedSearchedPokemon from "./DisplaySearchedPokemon";
+import FormSearch from "./FormSearch";
+import { Row } from "react-bootstrap";
+
+
 
 const API_SERVER = process.env.REACT_APP_SERVER;
 
@@ -166,11 +171,13 @@ class GetPokemon extends React.Component {
     return (
       <>
       <FormSearch handleSearch={this.handleSearch} input={this.handleInput}/>
+        <Row lg={3}>
         {
         this.state.pokedex.map((pokemon) =>
           <PokemonDisplay pokemon={pokemon} key={pokemon.id} />
         )
         }
+        </Row>
         <PokemonWantedForm />
       </>
     );
