@@ -11,8 +11,8 @@ class Content extends React.Component {
     render() {
         return (
             <>
-                <div>
-                    Login or Logout with one component <AuthButtons />
+                <div >
+                    Login or Logout with one component <AuthButtons  />
                 </div>
                 <div>
                     Login with a standalone component <Login />

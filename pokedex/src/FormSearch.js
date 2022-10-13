@@ -13,7 +13,7 @@ class FormSearch extends React.Component {
                         <Form.Label>Enter Pokemon</Form.Label>
                         <Form.Control onChange={this.props.input} type="value" placeholder="Enter Pokemon" />
                     </Form.Group>
-                    <Button className="button1" onClick={ this.props.handleSearch } variant="primary" type="submit">
+                    <Button className="nes-btn is-success" onClick={ this.props.handleSearch } type="button">
                         Submit Pokemon
                     </Button>
                 </Form>

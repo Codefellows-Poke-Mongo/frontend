@@ -5,6 +5,7 @@ import Login from './Auth/Login';
 import Logout from './Auth/Logout';
 import Profile from './Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "nes.css/css/nes.min.css";
 
 
 

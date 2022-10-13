@@ -24,7 +24,7 @@ class PokemonDisplay extends React.Component {
                         <ListGroup.Item>{pokemon.Moves[0]}</ListGroup.Item>
                     </ListGroup>
                     <Card.Body>
-                        <Button variant="primary">Trade Me!</Button>
+                        <Button className="nes-btn is-primary" type="button" variant="primary">Trade Me!</Button>
                     </Card.Body>
                 </Card>
             </>

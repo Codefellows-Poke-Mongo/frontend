@@ -23,9 +23,9 @@ class DisplayedSearchedPokemon extends React.Component {
                         <ListGroup.Item>{this.props.pokemon.moves[0].move.name}</ListGroup.Item>
                     </ListGroup>
                      <Card.Body>
-                        <Button variant="primary">Trade Me!</Button>
+                        <Button className="nes-btn is-primary" type="button" variant="primary">Trade Me!</Button>
                     </Card.Body> 
-                    <Button variant="primary" onClick={this.props.savePokemon}>Save</Button>
+                    <Button className="nes-btn is-primary" type="button" variant="primary" onClick={this.props.savePokemon}>Save</Button>
                 </Card>
             </>
         )
