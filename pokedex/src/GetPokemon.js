@@ -4,7 +4,6 @@ import PokemonDisplay from "./PokemonDisplay";
 import Profile  from "./Profile.js"
 import PokemonWantedForm from "./PokeWantedForm";
 import { withAuth0 } from '@auth0/auth0-react';
-
 import DisplayedSearchedPokemon from "./DisplaySearchedPokemon";
 import FormSearch from "./FormSearch";
 import { Row } from "react-bootstrap";
@@ -24,17 +23,18 @@ class GetPokemon extends React.Component {
       searchedPokemon: null,
       searchQuery: '',
       pokedexPokemon: [],
-      description: ''
+      description: [],
+      pokedex2: [],
     }
   }
 
 
-  getDescription =  async (name) => {
+  getDescription =  async () => {
     try {
-      const API = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`)
-       this.setState({
-        description: API.data.flavor_text_entries[0].flavor_text
-       })
+     for (let pokemon of this.state.pokedex) {
+       const API = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}`)
+       this.setState({pokedex2: [...this.state.pokedex2, API.data.flavor_text_entries.filter(flavor_text => flavor_text.language.name === 'en')[0].flavor_text]})
+     }
     } catch (error) {
       console.log('I am the description error', error.response);
     }
@@ -122,7 +122,7 @@ class GetPokemon extends React.Component {
       console.log(response.data.Pokemon)
       this.setState({
         pokedex: response.data.Pokemon
-      });
+      }, this.getDescription);
     } catch (error) {
       console.log('There is an error', error.response);
     }
@@ -186,12 +186,16 @@ class GetPokemon extends React.Component {
       <FormSearch handleSearch={this.handleSearch} input={this.handleInput}/>
         <Row lg={3}>
         {
-        this.state.pokedex.map((pokemon) =>
-          <PokemonDisplay pokemon={pokemon} key={pokemon.id} getDescription={this.getDescription} />
+        this.state.pokedex.map((pokemon, index) =>
+          <PokemonDisplay pokemon={pokemon} key={pokemon.id} description={this.state.pokedex2[index]}/>
         )
         }
         </Row>
         <PokemonWantedForm />
+        {this.state.searchedPokemon &&
+        <DisplayedSearchedPokemon pokemon={this.state.searchedPokemon} savePokemon={this.savePokemon}/>
+        
+        }
       </>
     );
   }
