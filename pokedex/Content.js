@@ -12,7 +12,7 @@ class Content extends React.Component {
         return (
             <>
                 <div >
-                    Login or Logout with one component <AuthButtons  />
+                    Login or Logout with one component <AuthButtons />
                 </div>
                 <div>
                     Login with a standalone component <Login />
