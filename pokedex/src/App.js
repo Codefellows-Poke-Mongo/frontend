@@ -22,13 +22,7 @@ class App extends React.Component {
                 </style>
             <Header/>
                 <div>
-                    Login or Logout with one component <AuthButtons />
-                </div>
-                <div>
-                    Login with a standalone component <Login />
-                </div>
-                <div>
-                    Logout with a standalone component <Logout />
+                     <AuthButtons />
                 </div>
                 {this.props.auth0.isAuthenticated &&
                     <>
