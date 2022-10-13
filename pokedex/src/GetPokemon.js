@@ -4,10 +4,11 @@ import PokemonDisplay from "./PokemonDisplay";
 import Profile  from "./Profile.js"
 import PokemonWantedForm from "./PokeWantedForm";
 import { withAuth0 } from '@auth0/auth0-react';
+
 import DisplayedSearchedPokemon from "./DisplaySearchedPokemon";
 import FormSearch from "./FormSearch";
-import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
 import { Row } from "react-bootstrap";
+
 
 
 const API_SERVER = process.env.REACT_APP_SERVER;
@@ -30,11 +31,13 @@ class GetPokemon extends React.Component {
     e.preventDefault();
     let {name, id} = this.state.searchedPokemon
     let pokemon = {name:name, id:id}
-    const response = await axios.post(`${API_SERVER}/save`, {pokemon:pokemon})
+    const res = await axios.post(`${API_SERVER}/save`, {pokemon:pokemon})
+    console.log(res.data);
+    const createdPokemon = res.data
     this.setState({
-      newPokedex: [...this.state.pokedexPokemon, response.data]
+      pokedexPokemon: [...this.state.pokedexPokemon, createdPokemon]
     })
-    console.log(this.state.newPokedex);
+    console.log(this.state.pokedexPokemon)
   }
   
   handleInput = (event) => {
@@ -49,9 +52,9 @@ class GetPokemon extends React.Component {
       const response = await axios.get(API);
       this.setState({ searchedPokemon: response.data });
       console.log(this.state.searchQuery)
-      console.log(response.data);
     } catch (error) {
       console.log('There is an error', error.response);
+
     }
   }
 
@@ -84,7 +87,7 @@ class GetPokemon extends React.Component {
     e.preventDefault();
     this.addPokemon({
       Name: e.target.Name.value,
-      ID: e.target.ID.value,
+      id: e.target.id.value,
       Types: e.target.Types.value,
       Stats: e.target.Stats.value,
       Moves: e.target.Moves.value,
@@ -176,9 +179,6 @@ class GetPokemon extends React.Component {
         }
         </Row>
         <PokemonWantedForm />
-        {this.state.searchedPokemon && 
-        <DisplayedSearchedPokemon pokemon={this.state.searchedPokemon} savePokemon={this.savePokemon}/>
-         }
       </>
     );
   }

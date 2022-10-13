@@ -2,10 +2,17 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+
 import { Col } from "react-bootstrap";
+
+import Form from 'react-bootstrap/Form';
+
+
 
 
 class PokemonDisplay extends React.Component {
+
+
     render() {
         let pokemon = this.props.pokemon
         return (
@@ -27,6 +34,7 @@ class PokemonDisplay extends React.Component {
                         </Card.Body>
                     </Card>
                     </Col>
+
             </>
         )
     }
