@@ -24,9 +24,23 @@ class GetPokemon extends React.Component {
       searchedPokemon: null,
       searchQuery: '',
       pokedexPokemon: [],
+      description: ''
     }
   }
- 
+
+
+  getDescription =  async (name) => {
+    try {
+      const API = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`)
+       this.setState({
+        description: API.data.flavor_text_entries[0].flavor_text
+       })
+    } catch (error) {
+      console.log('I am the description error', error.response);
+    }
+  }
+
+
   savePokemon = async (e) => {
     e.preventDefault();
     let {name, id} = this.state.searchedPokemon
@@ -166,7 +180,6 @@ class GetPokemon extends React.Component {
   }
 
 
-
   render() {
     return (
       <>
@@ -174,7 +187,7 @@ class GetPokemon extends React.Component {
         <Row lg={3}>
         {
         this.state.pokedex.map((pokemon) =>
-          <PokemonDisplay pokemon={pokemon} key={pokemon.id} />
+          <PokemonDisplay pokemon={pokemon} key={pokemon.id} getDescription={this.getDescription} />
         )
         }
         </Row>
