@@ -1,19 +1,16 @@
 import React from 'react';
 import { withAuth0 } from '@auth0/auth0-react';
 import AuthButtons from './Auth/AuthButtons';
-import Login from './Auth/Login';
-import Logout from './Auth/Logout';
 import Profile from './Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "nes.css/css/nes.min.css";
 import Header from './Header';
+import './App.css';
 
 
 
 
 class App extends React.Component {
-
-
     render() {
         return (
             <>
