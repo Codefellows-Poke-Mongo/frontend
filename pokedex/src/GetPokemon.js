@@ -6,7 +6,6 @@ import PokemonWantedForm from "./PokeWantedForm";
 import { withAuth0 } from '@auth0/auth0-react';
 import DisplayedSearchedPokemon from "./DisplaySearchedPokemon";
 import FormSearch from "./FormSearch";
-import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
 
 
 const API_SERVER = process.env.REACT_APP_SERVER;
@@ -22,9 +21,23 @@ class GetPokemon extends React.Component {
       searchedPokemon: null,
       searchQuery: '',
       pokedexPokemon: [],
+      description: ''
     }
   }
- 
+
+
+  getDescription =  async (name) => {
+    try {
+      const API = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`)
+       this.setState({
+        description: API.data.flavor_text_entries[0].flavor_text
+       })
+    } catch (error) {
+      console.log('I am the description error', error.response);
+    }
+  }
+
+
   savePokemon = async (e) => {
     e.preventDefault();
     let {name, id} = this.state.searchedPokemon
@@ -163,14 +176,13 @@ class GetPokemon extends React.Component {
   }
 
 
-
   render() {
     return (
       <>
       <FormSearch handleSearch={this.handleSearch} input={this.handleInput}/>
         {
         this.state.pokedex.map((pokemon) =>
-          <PokemonDisplay pokemon={pokemon} key={pokemon.id} />
+          <PokemonDisplay pokemon={pokemon} key={pokemon.id} getDescription={this.getDescription} />
         )
         }
         <PokemonWantedForm />

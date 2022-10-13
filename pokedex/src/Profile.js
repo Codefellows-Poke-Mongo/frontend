@@ -6,7 +6,6 @@ import GetPokemon from './GetPokemon';
 
 class Profile extends Component {
     render() {
-        // <Content />
         return <GetPokemon userName={this.props.auth0.user.name}/>;
     }
 }
