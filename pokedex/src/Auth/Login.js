@@ -9,7 +9,7 @@ function Login() {
         loginWithRedirect();
     }
     return !isAuthenticated &&
-        <button onClick={handleLogin}>Log in</button>
+        <button className="nes-btn is-success" onClick={handleLogin}>Log in</button>
         ;
 }
 export default Login;

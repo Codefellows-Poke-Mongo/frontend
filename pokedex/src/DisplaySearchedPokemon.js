@@ -11,6 +11,7 @@ class DisplayedSearchedPokemon extends React.Component {
         return (
             <>
                  <Card style={{ width: '26rem', backgroundColor: "#B08FB3"}} className="h-100 mx-auto my-1 px-1 nes-container is-centered is-rounded is-dark" >
+                 <Card.Title style={{ backgroundColor: "#817090" }} className="nes-container is-centered is-rounded is-dark">You Cached a Pokemon! </Card.Title>
                     <Card.Img variant="top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.props.pokemon.id}.png`}/>
                     <Card.Body>
                         <Card.Title className="nes-container is-centered is-rounded is-dark">{this.props.pokemon.name}</Card.Title>
