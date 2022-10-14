@@ -15,8 +15,7 @@ class DisplayedSearchedPokemon extends React.Component {
                     <Card.Body>
                         <Card.Title className="nes-container is-centered is-rounded is-dark">{this.props.pokemon.name}</Card.Title>
                         <Card.Text>
-                            Some quick example text to build on the card title and make up the
-                            bulk of the cards content.
+                            
                         </Card.Text>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
