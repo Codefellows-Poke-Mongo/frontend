@@ -14,8 +14,8 @@ class AboutMe extends React.Component {
         return (
             <>
                 <Container className='mt-5'>
-                    <Col>
-                        <Card className="mx-auto my-3  nes-container is-centered is-rounded is-dark" style={{ width: '26rem', backgroundColor: "#B08FB3" }} >
+                    <Col className='py-3'>
+                        <Card className="mx-auto my-3 h-100  nes-container is-centered is-rounded is-dark" style={{ width: '26rem', backgroundColor: "#B08FB3" }} >
                             <Card.Img variant="top" src={image3} />
                             <Card.Body>
                                 <Card.Title className="nes-container is-centered is-rounded is-dark">Ben Lieberman</Card.Title>

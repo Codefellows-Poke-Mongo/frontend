@@ -6,6 +6,7 @@ import { withAuth0 } from '@auth0/auth0-react';
 import DisplayedSearchedPokemon from "./DisplaySearchedPokemon";
 import FormSearch from "./FormSearch";
 import { Row } from "react-bootstrap";
+import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
 
 
 
@@ -194,7 +195,6 @@ class GetPokemon extends React.Component {
   componentDidMount() {
     this.getPokemon();
   }
-
 
   render() {
     return (
