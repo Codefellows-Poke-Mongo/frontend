@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import PokemonDisplay from "./PokemonDisplay";
-import Profile  from "./Profile.js"
 import PokemonWantedForm from "./PokeWantedForm";
 import { withAuth0 } from '@auth0/auth0-react';
 import DisplayedSearchedPokemon from "./DisplaySearchedPokemon";
@@ -23,8 +22,8 @@ class GetPokemon extends React.Component {
       searchedPokemon: null,
       searchQuery: '',
       pokedexPokemon: [],
-      description: [],
       pokedex2: [],
+      searchPokemonDescription: null,
     }
   }
 
@@ -40,6 +39,17 @@ class GetPokemon extends React.Component {
     }
   }
 
+  getSearchDescription = async () => {
+    try {
+      const API = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${this.state.searchQuery}`)
+      const response = API.data
+      console.log(response);
+      this.setState({searchPokemonDescription: response})
+      console.log(this.state.searchPokemonDescription);
+    } catch (error) {
+      console.log('I am the description error', error.response);
+    }
+  }
 
   savePokemon = async (e) => {
     e.preventDefault();
@@ -64,11 +74,10 @@ class GetPokemon extends React.Component {
     try {
       const API = `https://pokeapi.co/api/v2/pokemon/${this.state.searchQuery}`;
       const response = await axios.get(API);
-      this.setState({ searchedPokemon: response.data });
+      this.setState({ searchedPokemon: response.data}, this.getSearchDescription);
       console.log(this.state.searchQuery)
     } catch (error) {
       console.log('There is an error', error.response);
-
     }
   }
 
@@ -162,7 +171,7 @@ class GetPokemon extends React.Component {
       const updatedPokemon = response.data;
       console.log(updatedPokemon);
       const updatedPokemonArr = this.state.pokedex.map(pokemon => {
-        return pokemon.Name === updatedPokemon.data.Name ? updatedPokemon.data : pokemon;
+        return pokemon.name === updatedPokemon.data.name ? updatedPokemon.data : pokemon;
       });
       this.setState({
         pokedex: updatedPokemonArr,
@@ -193,7 +202,7 @@ class GetPokemon extends React.Component {
         </Row>
         <PokemonWantedForm />
         {this.state.searchedPokemon &&
-        <DisplayedSearchedPokemon pokemon={this.state.searchedPokemon} savePokemon={this.savePokemon}/>
+        <DisplayedSearchedPokemon pokemon={this.state.searchedPokemon} savePokemon={this.savePokemon} />
         
         }
       </>
