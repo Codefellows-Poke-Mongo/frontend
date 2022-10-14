@@ -128,7 +128,7 @@ class GetPokemon extends React.Component {
         url: `/register?name=${this.props.userName}`
       }
       const response = await axios(config)
-      console.log(response.data.Pokemon)
+      console.log(response.data.Pokemon[0].moves.length)
       this.setState({
         pokedex: response.data.Pokemon
       }, this.getDescription);
@@ -167,7 +167,7 @@ class GetPokemon extends React.Component {
   updatePokemon = async (pokemonToUpdate) => {
     try {
       const url = `${process.env.REACT_APP_SERVER}/trade`;
-      const response = await axios.put(url, {pokeWanted: pokemonToUpdate});
+      const response = await axios.post(url, {pokeSent: {name: pokemonToUpdate, id: 23}, pokeWanted: {name: 'raikou', id: 12}});
       const updatedPokemon = response.data;
       console.log(updatedPokemon);
       const updatedPokemonArr = this.state.pokedex.map(pokemon => {
@@ -177,12 +177,19 @@ class GetPokemon extends React.Component {
         pokedex: updatedPokemonArr,
       });
     } catch (error) {
-      console.log('There is an error: ', error.response);
+      console.log('There is an error: ', error.message);
     }
-    this.componentDidMount();
-    this.handleClose();
   }
 
+  reroll = async () => {
+    try {
+      const url = `${process.env.REACT_APP_SERVER}/update?name=${this.props.userName}`;
+      const response = await axios.get(url);
+      this.setState({pokedex: response.data.Pokemon})
+    } catch (error) {
+      console.log('There is an error: ', error.response);
+    }
+  }
 
   componentDidMount() {
     this.getPokemon();
@@ -192,11 +199,11 @@ class GetPokemon extends React.Component {
   render() {
     return (
       <>
-      <FormSearch handleSearch={this.handleSearch} input={this.handleInput}/>
+      <FormSearch handleSearch={this.handleSearch} input={this.handleInput} reroll={this.reroll}/>
         <Row lg={3}>
         {
         this.state.pokedex.map((pokemon, index) =>
-          <PokemonDisplay pokemon={pokemon} key={pokemon.id} description={this.state.pokedex2[index]}/>
+          <PokemonDisplay pokemon={pokemon} key={pokemon.id} description={this.state.pokedex2[index]} updatePokemon={this.updatePokemon}/>
         )
         }
         </Row>

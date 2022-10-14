@@ -17,6 +17,7 @@ class FormSearch extends React.Component {
                         Submit Pokemon
                     </Button>
                 </Form>
+                <Button className="nes-btn is-primary my-2 mx-3 text-center mx-auto 200 text-center w-20 d-flex flex-row" onClick={this.props.reroll}>Reroll your Pokemon!</Button>
             </>
         )
     }
