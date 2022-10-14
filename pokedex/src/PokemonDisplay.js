@@ -30,7 +30,7 @@ class PokemonDisplay extends React.Component {
                             <ListGroup.Item style={{ backgroundColor: "#8CD4A6" }} className="nes-container is-centered is-rounded my-1">{`Moves: ${pokemon.moves[0]}`}</ListGroup.Item>
                         </ListGroup>
                         <Card.Body>
-                        <Button className="nes-btn is-normal is-warning my-2" type="button" variant="primary">Trade Me!</Button>
+                        <Button className="nes-btn is-normal is-warning my-2" type="button" variant="primary" onClick={() => this.props.updatePokemon(pokemon.name)}>Trade Me!</Button>
                         </Card.Body>
                     </Card>
                     </Col>
