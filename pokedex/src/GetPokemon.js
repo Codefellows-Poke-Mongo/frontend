@@ -42,10 +42,10 @@ class GetPokemon extends React.Component {
   getSearchDescription = async () => {
     try {
       const API = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${this.state.searchQuery}`)
-      const response = API.data
+      const response = API.data.flavor_text_entries[0].flavor_text
       console.log(response);
-      this.setState({searchPokemonDescription: response})
-      console.log(this.state.searchPokemonDescription);
+      this.setState({searchPokemonDescription: response }, 
+        () => {console.log(this.state.searchPokemonDescription)});
     } catch (error) {
       console.log('I am the description error', error.response);
     }
@@ -202,8 +202,7 @@ class GetPokemon extends React.Component {
         </Row>
         <PokemonWantedForm />
         {this.state.searchedPokemon &&
-        <DisplayedSearchedPokemon pokemon={this.state.searchedPokemon} savePokemon={this.savePokemon} />
-        
+        <DisplayedSearchedPokemon pokemon={this.state.searchedPokemon} savePokemon={this.savePokemon}  pokemonDescription2={this.state.searchPokemonDescription} />
         }
       </>
     );
